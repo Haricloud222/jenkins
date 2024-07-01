@@ -1,0 +1,46 @@
+pipeline {
+    agent { label "projecta" }
+    
+    triggers {
+        pollSCM('* * * * *')
+    }    
+
+    stages {
+        stage('stage1 git clone') {
+            steps {
+                echo 'Hello World'
+                git branch: 'main', credentialsId: 'timcat22', url: 'https://github.com/Haricloud222/Hellowold-latest1.git'
+            }
+        }
+        stage('stage2 build') {
+            steps {
+                echo 'Hello World'
+                sh 'mvn clean package'
+            }
+        }
+        stage('stage3 deploy') {
+            steps {
+                echo 'Hello World'
+                deploy adapters: [tomcat8(credentialsId: 'timcat22', path: '', url: 'http://13.233.82.120:8080/')], contextPath: null, war: '**/*.war'
+            }
+        }
+        stage('stage4 test') {
+            steps {
+                echo 'Hello World'
+                deploy adapters: [tomcat8(credentialsId: 'timcat22', path: '', url: 'http://13.233.82.120:8080/')], contextPath: null, war: '**/*.war'
+            }
+        }
+        stage('stage5 UAT') {
+            steps {
+                echo 'Hello World'
+                deploy adapters: [tomcat8(credentialsId: 'timcat22', path: '', url: 'http://13.233.82.120:8080/')], contextPath: null, war: '**/*.war'
+            }
+        }
+        stage('stage6 production') {
+            steps {
+                echo 'Hello World'
+                deploy adapters: [tomcat8(credentialsId: 'timcat22', path: '', url: 'http://13.233.82.120:8080/')], contextPath: null, war: '**/*.war'
+            }
+        }
+    }
+}
